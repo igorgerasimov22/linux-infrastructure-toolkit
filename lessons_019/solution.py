@@ -1,6 +1,6 @@
 def print_header():
     """
-    Функция добавляет разделитиль
+    Функция добавляет разделитель
     """
     print("=" * 30)
 
@@ -11,18 +11,18 @@ def print_server_number(number):
     print(f"\nСервер №{number}")
 
 
-def parse_inventory_file(servers):
+def parse_inventory(server):
     """
     Функция собирает словарь серверов
     """
     parsed_servers = []
-    for _ in servers:
-        _ = _.strip()
-        lines = _.split(',')
-        if not _:
+    for line in server:
+        line = line.strip()
+        lines = line.split(',')
+        if not line:
             continue
         if len(lines) != 4:
-            print(f"Встроке {_} ошибка")
+            print(f"В строке {line} ошибка")
             print(f"Недостаточно или пропущены поля. Строка пропущена.")
             continue
         parsed_servers.append(({"name": lines[0], "ip": lines[1],  "ram": int(lines[2]), "cpu": int(lines[3])}))
@@ -36,13 +36,13 @@ def load_inventory_file():
     with open("servers.txt", "r") as file:
         for line in file:
             servers.append(line)
-    return parse_inventory_file(servers)
+    return parse_inventory(servers)
 
-def print_inventory(server):
+def print_inventory(servers):
     """
-    Функция выводит списко серверов
+    Функция выводит список серверов
     """
-    for number, server in enumerate(server, start=1):
+    for number, server in enumerate(servers, start=1):
         print_server_number(number)
         for key, value in server.items():
             print(f"{key}: {value}")
