@@ -33,13 +33,13 @@ def load_inventory_file():
     Функция открывает файл со списком серверов
     """
     try:
-        print("")
-    exe
-    servers = []
-    with open("servers.txt", "r") as file:
-        for line in file:
-            servers.append(line)
-    return parse_inventory(servers)
+        servers = []
+        with open("servers.txt", "r") as file:
+            for line in file:
+                servers.append(line)
+        return parse_inventory(servers)
+    except FileNotFoundError:
+        print("Файл не найден")
 
 def print_inventory(servers):
     """
