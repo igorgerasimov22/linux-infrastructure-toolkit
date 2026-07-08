@@ -21,12 +21,10 @@ def main():
     except ValueError:
         print("ERROR")
         print("Index must be a number")
-        print_header()
     except IndexError:
         print("ERROR")
         print("Element not found")
-        print_header()
-        exit
+    print_header()
 
 if __name__ == "__main__":
     main()
