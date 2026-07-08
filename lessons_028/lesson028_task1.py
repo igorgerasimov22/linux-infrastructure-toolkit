@@ -15,12 +15,23 @@ def parse_passwd_file(passwd_file):
         parsed_line = line.split(':')
         if not parsed_line:
             continue
-        parsed_passwd_file.append(parsed_line)
+        parsed_passwd_file.append({
+            "username": parsed_line[0],
+            "password": parsed_line[1],
+            "uid": parsed_line[2],
+            "gid": parsed_line[3],
+            "description": parsed_line[4],
+            "home": parsed_line[5],
+            "shell": parsed_line[6]
+        })
     return parsed_passwd_file
 
 def print_user(users):
-    for user in sorted(users):
-        print(user[0])
+    for user in users:
+        print(f"{user["username"]}: {user["shell"]}")
+    #for number, user in enumerate(users, start=0):
+    #    for key, value in user.items():
+    #        print(f"{user["username"]}: {user["shell"]}")
 
 def main():
     print_header()
