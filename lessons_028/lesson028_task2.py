@@ -19,8 +19,8 @@ def parse_passwd_file(passwd_file):
             {
                 "username": user[0],
                 "password": user[1],
-                "uid": user[2],
-                "gid": user[3],
+                "uid": int(user[2]),
+                "gid": int(user[3]),
                 "description": user[4],
                 "home": user[5],
                 "shell": user[6]
@@ -29,22 +29,23 @@ def parse_passwd_file(passwd_file):
     return parsed_passwd_file
 
 def print_users(parsed_passwd_file):
+    allowed_shells = {"/bin/bash", "/bin/sh", "/bin/zsh"}
     for line in parsed_passwd_file:
-        if line['shell'] == "/bin/bash":
+        if line['shell'] in allowed_shells:
             print(f"username: {line['username']}\tshell: {line['shell']}")
 
 def main():
     print_header()
     try:
         passwd_file = load_passwd_file()
-        parsed_passwd_file =parse_passwd_file(passwd_file)
+        parsed_passwd_file = parse_passwd_file(passwd_file)
         print_users(parsed_passwd_file)
     except FileNotFoundError:
         print("ERROR")
         print("File not found")
     except PermissionError:
         print("ERROR")
-        print("Access deniaed")
+        print("Access denied")
     print_header()
 
 if __name__ == "__main__":
