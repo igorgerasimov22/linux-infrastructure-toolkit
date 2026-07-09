@@ -29,10 +29,13 @@ def parse_passwd_file(passwd_file):
     return parsed_passwd_file
 
 def print_users(parsed_passwd_file):
+    count_users = 0
     allowed_shells = {"/bin/bash", "/bin/sh", "/bin/zsh"}
     for line in parsed_passwd_file:
         if line['shell'] in allowed_shells:
+            count_users +=1
             print(f"username: {line['username']}\tshell: {line['shell']}")
+    print(f"\nLogin users count: {count_users}")
 
 def main():
     print_header()
