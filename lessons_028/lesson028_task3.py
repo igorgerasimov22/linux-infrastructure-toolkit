@@ -11,15 +11,15 @@ def load_passwd_file():
 def parse_passwd_file(passwd_file):
     parsed_passwd_file = []
     for line in passwd_file:
+        line = line.strip()
         if not line:
             continue
-        line = line.strip()
         user = line.split(':')
         parsed_passwd_file.append({
             "username": user[0],
             "password": user[1],
-            "uid": user[2],
-            "gid": user[3],
+            "uid": int(user[2]),
+            "gid": int(user[3]),
             "description": user[4],
             "home": user[5],
             "shell": user[6]
@@ -32,9 +32,13 @@ def create_users_index(parsed_passwd_file):
         users_index[user["username"]] = user
     return users_index
 
-def print_user(users_index, user):
-    for key, value in users_index[user].items():
-        print(f"{key}: {value}")
+def print_user(users_index, username):
+    user = users_index[username]
+    print(f"Username: {user['username']}")
+    print(f"UID     : {user['uid']}")
+    print(f"GID     : {user['gid']}")
+    print(f"HOME    : {user['home']}")
+    print(f"SHELL   : {user['shell']}")
 
 def main():
     print_header()
@@ -52,7 +56,7 @@ def main():
         print("Access denied")
     except KeyError:
         print("ERROR")
-        print("USer not found")
+        print("User not found")
     print_header()
 
 if __name__ == "__main__":
